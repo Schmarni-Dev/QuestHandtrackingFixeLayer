@@ -1,7 +1,7 @@
 pub mod extension_set;
 
 use core::{f32, slice};
-use std::{ffi::CStr, mem};
+use std::ffi::CStr;
 
 use extension_set::ext_set_from_names;
 use glam::{Quat, Vec3};
@@ -44,19 +44,12 @@ impl APILayerInstanceData for InstanceData {
         instance_info: &InstanceCreateInfo,
         instance: Instance,
     ) -> XrResult<Self> {
-        let app_name = instance_info
-            .application_info
-            .application_name
-            .to_rust_string()?;
         let instance = unsafe {
             let w = slice::from_raw_parts(
                 instance_info.enabled_extension_names,
                 instance_info.enabled_extension_count as usize,
             );
-            let w = w
-                .iter()
-                .map(|v| unsafe { CStr::from_ptr(*v) })
-                .collect::<Vec<_>>();
+            let w = w.iter().map(|v| CStr::from_ptr(*v)).collect::<Vec<_>>();
             let instance_extension =
                 openxr::InstanceExtensions::load(&entry, instance, &ext_set_from_names(&w))?;
             openxr::Instance::from_raw(entry, instance, instance_extension)

@@ -2,9 +2,10 @@
     "file_format_version": "1.0.0",
     "api_layer": {
         "name": "XR_APILAYER_NOVENDOR_quest_hand_fixes",
-        "library_path": "./target/debug/libquest_handtracking_fix_layer.so",
+        "library_path": "./libquest_handtracking_fix_layer.so",
         "api_version": "1.0",
         "implementation_version": "1",
-        "description": "Fixes some Issues with the handtracking impl from the Oculus Quest"
+        "description": "Fixes some Issues with the handtracking impl from the Oculus Quest",
+		"disable_environment": "QUEST_ORIGINAL_HAND_DATA"
     }
 }
